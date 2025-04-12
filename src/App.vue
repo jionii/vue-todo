@@ -1,42 +1,33 @@
 <template>
-  <div id="app">
-    <TodoHeader></TodoHeader>
-    <TodoInput></TodoInput>
-    <TodoList></TodoList>
-    <TodoFooter></TodoFooter>
+  <div>
+    <TodoHeader/>
+    <!-- @addTodo : 이벤트 이름과 정확하게 일치해야함 -->
+    <!-- addTodo : App.vue 내부에 정의한 함수 이름 (마음대로 바꿀 수 있음) -->
+    <TodoInput @addTodo="addTodo"/>
+    <TodoList :todoItems="todoItems"/>
+    <TodoFooter/>
   </div>
 </template>
 
-<script>
-import TodoHeader from './components/TodoHeader.vue'
-import TodoInput from './components/TodoInput.vue'
-import TodoList from './components/TodoList.vue'
-import TodoFooter from './components/TodoFooter.vue'
+<script setup>
+import TodoFooter from './components/TodoFooter.vue';
+import TodoHeader from './components/TodoHeader.vue';
+import TodoInput from './components/TodoInput.vue';
+import TodoList from './components/TodoList.vue';
+import './assets/main.css'
+import {ref} from 'vue'
 
-export default {
-  components: {
-    //컴포넌트 태그명 : 컴포넌트 내용
-    'TodoHeader' : TodoHeader,
-    'TodoInput' : TodoInput,
-    'TodoList' : TodoList,
-    'TodoFooter' : TodoFooter,
-  }
+const todoItems = ref([])
+
+const addTodo = (text) => {
+  todoItems.value.push({
+    item: text,
+    completed: false
+  })
 }
+
 </script>
 
-<style>
-body {
-  text-align: center;
-  background-color: #F6F6F6;
-}
-input {
-  border-style: groove;
-  width: 200px;
-}
-button {
-  border-style: groove;
-}
-.shadow {
-  box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.03);
-}
+
+<style scoped>
 </style>

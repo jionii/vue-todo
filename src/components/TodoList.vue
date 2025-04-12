@@ -1,78 +1,17 @@
 <template>
-    <div>
-        <ul>
-            <li v-for="(todoItem, index) in todoItems" v-bind:key="todoItem.item" class="shadow">
-                <button v-bind:class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleComplete(todoItem, index)">v</button>
-                <span v-bind:class="{textCompleted: todoItem.completed}">{{ todoItem.item }}</span>
-                <button class="removeBtn" v-on:click="removeTodo(todoItem, index)">-</button>
-            </li>
-        </ul>
-    </div>
+  <div class="todolist-box"></div>
 </template>
 
-<script>
-    export default {
-        data: function() {
-            return {
-                todoItems: []
-            }
-        },
-        methods: {
-            removeTodo: function(todoItem, index) {
-                localStorage.removeItem(todoItem);
-                this.todoItems.splice(index, 1);
-            },
-            toggleComplete: function(todoItem) {
-                todoItem.completed = !todoItem.completed;
-                // 로컬 스토리지의 데이터를 갱신
-                localStorage.removeItem(todoItem.item);
-                localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
-            }
-        },
-        created: function() {
-            if (localStorage.length > 0) {
-                for (var i = 0; i < localStorage.length ; i ++) {
-                    this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
-                }
-            }
-        }
-    }
+<script setup>
+  
 </script>
 
+
 <style scoped>
-ul {
-    list-style-type: none;
-    padding-left: 0px;
-    margin-top: 0;
-    text-align: left;
-}
-li {
-    display: flex;
-    min-height: 50px;
-    height: 50px;
-    line-height: 50px;
-    margin: 0.5rem 0;
-    padding: 0 0.9rem;
-    background: white;
-    border-radius: 5px;
-}
-.removeBtn {
-    border: none;
-    margin-left: auto;
-    color: #de4343;
-    background-color: rgb(255, 189, 202);
-}
-.checkBtn {
-    line-height: 45px;
-    color: #62acde;
-    margin-right: 5px;
-}
-.checkBtnCompleted {
-    text-decoration: line-through;
-    color: #b3adad;
-}
-.textCompleted {
-    text-decoration: line-through;
-    color: #b3adad;
+.todolist-box {
+  display: flex;
+  width: 100%;
+  height: 500px;
+  background-color: rgb(255, 230, 234);
 }
 </style>
