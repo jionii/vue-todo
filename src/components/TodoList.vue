@@ -7,10 +7,9 @@
       <li
        v-for="(todo, index) in todoItems" 
        :key="index" class="todo-item" 
-       :class="{completed: todo.completed}" 
+       :class="{completed: todo.completed}"
        @click="$emit('toggle', index)"> <!-- 나 지금 index번 항목 클릭됐어! toggle이라는 이벤트로 알려줄게! -->
-        {{ index + 1 }}. {{ todo.item }}
-
+        <span class="todo-text">{{ index + 1 }}. {{ todo.item }}</span>
         <button class="remove-btn" @click.stop="$emit('remove', index)">삭제</button>
       </li>
     </ul>
@@ -27,7 +26,7 @@ defineProps(['todoItems'])  // 부모 컴포넌트(App.vue)에서 todoItems 배�
   width: 100%;
   height: 500px;
   padding: 20px;
-  background-color: rgb(255, 230, 234); /* 배경색 */
+  background-color: #f5f5f5; /* 배경색 */
   overflow-y: auto; /* 스크롤 가능 */
   box-sizing: border-box;
 }
@@ -48,6 +47,9 @@ defineProps(['todoItems'])  // 부모 컴포넌트(App.vue)에서 todoItems 배�
   font-size: 1.1rem;                    /* 글씨 크기 */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* 그림자 효과 */
   transition: transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 /* hover 시 살짝 뜨는 애니메이션 */
@@ -56,20 +58,27 @@ defineProps(['todoItems'])  // 부모 컴포넌트(App.vue)에서 todoItems 배�
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.08);
 }
 
+/* 완료된 항목 스타일 */
 .completed {
   text-decoration: line-through;
   color: #aaa;
   background-color: #f0f0f0;
 }
 
+.todo-text {
+  flex: 1;
+  cursor: pointer;
+  word-break: break-word;
+}
+
 .remove-btn {
-  margin-left: auto;
+  margin-left: 16px;
   background-color: rgb(255, 189, 202);
   color: #de4343;
   border: none;
-  padding: 5px 10px;
+  padding: 6px 12px;
   font-weight: bold;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.2s;
 }
@@ -77,5 +86,4 @@ defineProps(['todoItems'])  // 부모 컴포넌트(App.vue)에서 todoItems 배�
 .remove-btn:hover {
   background-color: rgb(255, 170, 187);
 }
-
 </style>

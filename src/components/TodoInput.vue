@@ -24,21 +24,46 @@ const submitTodo = () => {
   const trimmed = newTodo.value.trim()
   // 입력 값이 공백이 아니면 (즉, 뭔가 입력했으면) if문 실행
   if (trimmed) {
-
     // emit('이벤트이름') → 부모에서 @이벤트이름 = "이 함수 실행 "
-    emit('addTodo', trimmed) // 부모 컴포넌트(App.vue)로 'addTodo'이벤트를 발생시키고 입력한 텍스트를 함께 보냄
-    newTodo.value = '' // 입력창 초기화 (엔터 치고 나면 다시 빈 입력창으로)
+    emit('addTodo', trimmed) // 부모 컴포넌트(App.vue)로 'addTodo'이벤트를 발생시하고 입력한 텍스트를 함께 보내며
+    newTodo.value = '' // 입력창 초기화 (enter 치고 나면 다시 비인 입력창으로)
   }
 }
 </script>
-
 
 <style scoped>
 .input-box {
   padding: 20px;
   display: flex;
-  width: 100%;
-  height: 100px;
-  background-color: rgb(195, 187, 152);
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #eee;
+}
+
+.input-box input {
+  flex: 1;
+  max-width: 500px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+}
+
+.input-box button {
+  padding: 10px 15px;
+  font-size: 1.2rem;
+  border: none;
+  background-color: #62acde;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.input-box button:hover {
+  background-color: #4e95c7;
 }
 </style>
