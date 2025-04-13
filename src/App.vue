@@ -4,7 +4,9 @@
     <!-- @addTodo : 이벤트 이름과 정확하게 일치해야함 -->
     <!-- addTodo : App.vue 내부에 정의한 함수 이름 (마음대로 바꿀 수 있음) -->
     <TodoInput @addTodo="addTodo"/>
-    <TodoList :todoItems="todoItems"/>
+
+    <!-- @toggle: emit('toggle')받음 -> toggleComplete 함수 실행 -->
+    <TodoList :todoItems="todoItems" @toggle="toggleComplete" @remove="removeTodo"/>
     <TodoFooter/>
   </div>
 </template>
@@ -29,6 +31,26 @@ const addTodo = (text) => {
     item: text, // 사용자가 입력한 할 일 내용
     completed: false // 체크 여부 (처음엔 당연히 false)
   })
+}
+
+// 할 일 완료 기능 1
+// const toggleComplete = (index) => {
+//   // todoItems 배열에서 index에 해당하는 항목을 찾아서, 그 항목의 completed 값을 반전(true <-> false) 시킨다.
+//   // todoItems.value[1] = { item: '청소하기', completed: true }
+//   todoItems.value[index].completed = !todoItems.value[index].completed
+// }
+
+// 할 일 완료 기능 2
+const toggleComplete = (index) => {
+  const target =todoItems.value[index]
+  if (!target) return // index가 존재하지 않으면 그냥 함수 종료
+
+  target.completed = !target.completed
+}
+
+// 할 일 삭제 기능
+const removeTodo = (index) => {
+  todoItems.value.splice(index, 1) // splice(index, 1): 배열에서 index번째 항목을 1개 삭제
 }
 
 </script>

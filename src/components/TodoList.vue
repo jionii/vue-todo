@@ -4,8 +4,14 @@
       <!-- todoItems 배열 안에 있는 각 항목을 반복하면서, 각 항목을 todo라는 이름으로, 현재 반복 인덱스를 index라는 이름으로 사용하겠다 -->
       <!-- todo: 현재 반복중인 요소 하나(객체 하나), index: 현재 몇 번째인지 나타내는 숫자(0부터 시작) -->
       <!-- key: Vue가 DOM 업데이트를 효율적으로 하기 위해서 꼭 필요함 -->
-      <li v-for="(todo, index) in todoItems" :key="index" class="todo-item">
+      <li
+       v-for="(todo, index) in todoItems" 
+       :key="index" class="todo-item" 
+       :class="{completed: todo.completed}" 
+       @click="$emit('toggle', index)"> <!-- 나 지금 index번 항목 클릭됐어! toggle이라는 이벤트로 알려줄게! -->
         {{ index + 1 }}. {{ todo.item }}
+
+        <button class="remove-btn" @click.stop="$emit('remove', index)">삭제</button>
       </li>
     </ul>
   </div>
@@ -49,4 +55,27 @@ defineProps(['todoItems'])  // 부모 컴포넌트(App.vue)에서 todoItems 배�
   transform: translateY(-2px);
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.08);
 }
+
+.completed {
+  text-decoration: line-through;
+  color: #aaa;
+  background-color: #f0f0f0;
+}
+
+.remove-btn {
+  margin-left: auto;
+  background-color: rgb(255, 189, 202);
+  color: #de4343;
+  border: none;
+  padding: 5px 10px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.remove-btn:hover {
+  background-color: rgb(255, 170, 187);
+}
+
 </style>
